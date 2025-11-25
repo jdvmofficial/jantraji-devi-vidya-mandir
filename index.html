@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JANTRAJI DEVI VIDYA MANDIR</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: #0046ad;
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 25px;
+            color: white;
+            font-size: 18px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        /* SCHOOL TITLE */
+        h1 {
+            background: #0056ff;
+            color: white;
+            padding: 25px 0;
+            text-align: center;
+            font-size: 32px;
+            margin: 0;
+        }
+
+        /* TWO IMAGES */
+        .image-row {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .image-row img {
+            width: 40%;
+            min-width: 280px;
+            border-radius: 10px;
+        }
+
+        /* SLIDESHOW */
+        .slideshow-container {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .slide {
+            display: none;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+
+        /* NEXT & PREV BUTTONS */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 45%;
+            padding: 12px;
+            color: white;
+            font-size: 25px;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 4px;
+        }
+
+        .prev { left: 10px; }
+        .next { right: 10px; }
+
+        /* DOTS */
+        .dots-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .dot {
+            height: 13px;
+            width: 13px;
+            background: #bbb;
+            display: inline-block;
+            border-radius: 50%;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .active {
+            background: #0046ad;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #0046ad;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .image-row img {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <div><b>J.D.V.M. LAMBHUA</b></div>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="mangement.html">Management</a>
+            <a href="enroll.html">Enroll now</a>
+            <a href="paymentstructure.html">Pay online</a>
+            <a href="about.html">About</a>
+            <a href="events.html">Events</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </div>
+
+    <h1>🏫 JANTRAJI DEVI VIDYA MANDIR</h1>
+
+    <!-- TWO IMAGES -->
+    <div class="image-row">
+        <img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/Jdvm/IMG-20251124-WA0002.jpg?raw=true" alt="PIC1">
+        <img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/Jdvm/IMG-20251124-WA0037.jpg?raw=true" alt="PIC2">
+    </div>
+
+    <!-- SLIDESHOW -->
+    <div class="slideshow-container">
+        <div class="slide"><img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/Jdvm/IMG-20251124-WA0032.jpg?raw=true" alt="PIC3"></div>
+        <div class="slide"><img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/Jdvm/IMG-20251124-WA0020.jpg?raw=true" alt="PIC4"></div>
+        <div class="slide"><img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/Jdvm/IMG-20251124-WA0019.jpg?raw=true" alt="PIC5"></div>
+
+        <div class="prev" onclick="plusSlides(-1)">❮</div>
+        <div class="next" onclick="plusSlides(1)">❯</div>
+    </div>
+
+    <!-- DOTS -->
+    <div class="dots-container">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        © 2025 JANTRAJI DEVI VIDYA MANDIR — All Rights Reserved
+    </footer>
+
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("slide");
+            let dots = document.getElementsByClassName("dot");
+
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+
+            for (i = 0; i < dots.length; i++) {
+                dots[i].classList.remove("active");
+            }
+
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].classList.add("active");
+        }
+
+        /* AUTO SLIDE */
+        setInterval(() => { plusSlides(1); }, 4000);
+    </script>
+
+</body>
+</html>
