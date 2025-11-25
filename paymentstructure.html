@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fee Payment Structure</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            text-align: center;
+        }
+
+        /* HEADER (matched to homepage theme) */
+        header {
+            background: #0046ad;
+            color: white;
+            padding: 30px 10px;
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .fee-container {
+            width: 92%;
+            margin: 30px auto;
+            max-width: 950px;
+        }
+
+        /* TABLE STYLING */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            margin-bottom: 40px;
+        }
+
+        th {
+            background: #0046ad;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: #e8f0ff;
+        }
+
+        .pdf-btn {
+            background: #0046ad;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .pdf-btn:hover {
+            background: #003a82;
+        }
+
+        .section-title {
+            font-size: 26px;
+            margin-top: 35px;
+            color: #003b92;
+            font-weight: bold;
+        }
+
+        /* PAY BUTTON */
+        .payment-button {
+            margin-top: 10px;
+            padding: 14px 25px;
+            background: #0046ad;
+            color: white;
+            border: none;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+        }
+
+        .payment-button:hover {
+            background: #003a82;
+        }
+
+        /* NOTES */
+        .note {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>📘 Fee Payment Structure</header>
+
+<div class="fee-container">
+
+    <!-- MAIN FEE TABLE -->
+    <div class="section-title">Academic Fee (2025–26)</div>
+
+    <table>
+        <tr>
+            <th>Class</th>
+            <th>Monthly Fee</th>
+            <th>Admission Fee</th>
+            <th>Annual Charges</th>
+            <th>Download PDF</th>
+        </tr>
+
+        <tr><td>Nursery</td><td>₹1200</td><td>₹3000</td><td>₹1500</td>
+            <td><a class="pdf-btn" href="pdf/nursery_fee.pdf" download>Download</a></td></tr>
+
+        <tr><td>1st – 5th</td><td>₹1500</td><td>₹3500</td><td>₹2000</td>
+            <td><a class="pdf-btn" href="pdf/class1_5_fee.pdf" download>Download</a></td></tr>
+
+        <tr><td>6th – 8th</td><td>₹1800</td><td>₹4000</td><td>₹2500</td>
+            <td><a class="pdf-btn" href="pdf/class6_8_fee.pdf" download>Download</a></td></tr>
+
+        <tr><td>9th – 10th</td><td>₹2200</td><td>₹4500</td><td>₹3000</td>
+            <td><a class="pdf-btn" href="pdf/class9_10_fee.pdf" download>Download</a></td></tr>
+
+        <tr><td>11th – 12th</td><td>₹2600</td><td>₹5000</td><td>₹3500</td>
+            <td><a class="pdf-btn" href="pdf/class11_12_fee.pdf" download>Download</a></td></tr>
+    </table>
+
+
+
+    <!-- TRANSPORT FEE TABLE -->
+    <div class="section-title">🚍 Transport Fee</div>
+
+    <table>
+        <tr>
+            <th>Distance</th>
+            <th>Monthly Charges</th>
+            <th>Download PDF</th>
+        </tr>
+
+        <tr><td>0 – 3 KM</td><td>₹500</td>
+            <td><a class="pdf-btn" href="pdf/transport_0_3km.pdf" download>Download</a></td></tr>
+
+        <tr><td>3 – 7 KM</td><td>₹700</td>
+            <td><a class="pdf-btn" href="pdf/transport_3_7km.pdf" download>Download</a></td></tr>
+
+        <tr><td>7 – 12 KM</td><td>₹900</td>
+            <td><a class="pdf-btn" href="pdf/transport_7_12km.pdf" download>Download</a></td></tr>
+
+        <tr><td>12+ KM</td><td>₹1100</td>
+            <td><a class="pdf-btn" href="pdf/transport_12plus.pdf" download>Download</a></td></tr>
+    </table>
+
+
+    <p class="note">⚠ Parents are advised to verify fee details from the school office.</p>
+
+    <a href="pay_fee.html">
+        <button class="payment-button">💳 Pay Fee Online</button>
+    </a>
+</div>
+
+</body>
+</html>

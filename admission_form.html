@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Admission - School</title>
+
+    <!-- EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+        (function(){
+            emailjs.init("YOUR_PUBLIC_KEY"); // <-- Replace with EmailJS PUBLIC KEY
+        })();
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4ff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 12px rgba(0,0,0,0.15);
+        }
+        h2 {
+            text-align: center;
+            color: #003cff;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 15px;
+            display: block;
+        }
+        input, select, textarea {
+            width: 100%;
+            font-size: 16px;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #bbb;
+            border-radius: 8px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #003cff;
+            border: none;
+            color: white;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #002bb3;
+        }
+    </style>
+
+    <script>
+        function sendForm(event) {
+            event.preventDefault();
+
+            let name = document.getElementById("name").value;
+            let parent = document.getElementById("parent").value;
+            let mobile = document.getElementById("mobile").value;
+            let cls = document.getElementById("class").value;
+            let message = document.getElementById("message").value;
+
+            // -----------------------------
+            // 1. SEND TO WHATSAPP
+            // -----------------------------
+            let whatsappNumber = "9838916565"; // <--- Admission in-charge mobile
+
+            let text = `New Admission Request%0A%0A`
+                      + `Student Name: ${name}%0A`
+                      + `Parent Name: ${parent}%0A`
+                      + `Mobile: ${mobile}%0A`
+                      + `Required Class: ${cls}%0A`
+                      + `Message: ${message}`;
+
+            let whatsappURL = `https://wa.me/${whatsappNumber}?text=${text}`;
+            window.open(whatsappURL, "_blank");
+
+            // -----------------------------
+            // 2. SEND EMAIL USING EMAILJS
+            // -----------------------------
+            emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {   // <-- Replace
+                student_name: name,
+                parent_name: parent,
+                student_mobile: mobile,
+                class_required: cls,
+                extra_message: message
+            })
+            .then(() => alert("✔ Form Sent Successfully!\n✔ WhatsApp + Email Delivered"))
+            .catch(() => alert("⚠ Email Failed — But WhatsApp Sent"));
+        }
+    </script>
+
+</head>
+<body>
+
+<div class="container">
+    <h2>Online Admission Form</h2>
+
+    <form onsubmit="sendForm(event)">
+        <label>Student Name</label>
+        <input type="text" id="name" required>
+
+        <label>Parent/Guardian Name</label>
+        <input type="text" id="parent" required>
+
+        <label>Mobile Number</label>
+        <input type="tel" id="mobile" required>
+
+        <label>Required Class</label>
+        <select id="class">
+            <option value="Nursery">Nursery</option>
+            <option value="LKG">LKG</option>
+            <option value="UKG">UKG</option>
+            <option value="1st">1st</option>
+            <option value="2nd">2nd</option>
+            <option value="3rd">3rd</option>
+            <option value="4th">4th</option>
+            <option value="5th">5th</option>
+            <option value="6th">6th</option>
+            <option value="7th">7th</option>
+            <option value="8th">8th</option>
+            
+        </select>
+
+        <label>Additional Message</label>
+        <textarea id="message" rows="4"></textarea>
+
+        <button type="submit">Submit Admission</button>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fee Payment</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            background: #004aad;
+            color: white;
+            padding: 25px;
+            font-size: 35px;
+            font-weight: bold;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background: white;
+            padding: 25px;
+            margin: 30px auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* RED ALERT BOX */
+        .alert {
+            background: #ffdddd;
+            color: #b80000;
+            border-left: 6px solid red;
+            padding: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+
+        input {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 2px solid #ccc;
+            font-size: 18px;
+        }
+        button {
+            background: #004aad;
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            font-size: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 95%;
+        }
+        button:hover {
+            background: #00337a;
+        }
+        #qrBox {
+            margin-top: 25px;
+            display: none;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+</head>
+
+<body>
+
+<header>Online Fee Payment</header>
+
+<div class="container">
+
+    <!-- RED ALERT -->
+    <div class="alert">
+        ⚠ Always verify the UPI ID and Receiver Name before paying:  
+        <br><b>advocate.umesh.pandey@okaxis</b> — <b>Umesh Chandra Pandey</b>
+    </div>
+
+    <h2>Fill Fee Details</h2>
+
+    <input type="text" id="studentName" placeholder="Student Name" required>
+    <input type="text" id="class" placeholder="Class" required>
+    <input type="number" id="amount" placeholder="Amount (₹)" required>
+
+    <button onclick="startPayment()">Pay Now</button>
+
+    <div id="qrBox">
+        <h3>Scan to Pay</h3>
+        <div id="qrcode"></div>
+    </div>
+
+</div>
+
+
+<script>
+function generateUPI(amount, name, className) {
+    let upiID = "advocate.umesh.pandey@okaxis";  // Your UPI ID
+    let receiver = "Umesh Chandra Pandey";       // Receiver Name
+
+    return `upi://pay?pa=${upiID}&pn=${encodeURIComponent(receiver)}&am=${amount}&tn=Fee%20Payment%20-%20${encodeURIComponent(name)}%20(${encodeURIComponent(className)})`;
+}
+
+function startPayment() {
+    let name = document.getElementById("studentName").value;
+    let className = document.getElementById("class").value;
+    let amount = document.getElementById("amount").value;
+
+    if (!name || !className || !amount) {
+        alert("Please fill all details");
+        return;
+    }
+
+    let upiLink = generateUPI(amount, name, className);
+
+    // Try opening UPI URL directly (for mobile)
+    window.location.href = upiLink;
+
+    // If UPI app doesn't open (PC), show QR
+    setTimeout(() => {
+        showQR(upiLink);
+    }, 1500);
+}
+
+function showQR(upiLink) {
+    document.getElementById("qrBox").style.display = "block";
+    document.getElementById("qrcode").innerHTML = ""; // Clear previous QR
+
+    new QRCode(document.getElementById("qrcode"), {
+        text: upiLink,
+        width: 200,
+        height: 200
+    });
+}
+</script>
+
+</body>
+</html>

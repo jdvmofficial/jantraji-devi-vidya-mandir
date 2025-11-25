@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us - My School</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            text-align: center;
+        }
+        header {
+            background: #004aad;
+            color: white;
+            padding: 25px 10px;
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .container {
+            width: 90%;
+            max-width: 700px;
+            background: white;
+            margin: 40px auto;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        h2 {
+            color: #004aad;
+            font-size: 26px;
+        }
+        .info {
+            font-size: 18px;
+            margin: 15px 0;
+            line-height: 1.6;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        .contact-form button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background: #004aad;
+            border: none;
+            color: white;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .contact-form button:hover {
+            background: #00358a;
+        }
+        .map {
+            margin-top: 25px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+        }
+    </style>
+</head>
+<body>
+
+<header>CONTACT US</header>
+
+<div class="container">
+    <h2>Get in Touch</h2>
+    <p class="info">
+        📍 <strong>Address:</strong> Diyra Road, Near B.S.P Office Gosayika Purwa, Lambhua, Sultanpur, 222302<br>
+        📞 <strong>Phone:</strong> +91 98389 16565<br>
+        ✉ <strong>Email:</strong> ganesh8522@gmail.com
+    </p>
+
+    
+
+    <div class="map">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d526.9688720254567!2d82.22814428114702!3d26.1435247155334!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjbCsDA4JzM3LjkiTiA4MsKwMTMnNDMuMyJF!5e1!3m2!1sen!2sin!4v1763978570197!5m2!1sen!2sin"
+            width="100%" height="300" frameborder="0" style="border:0" allowfullscreen=""></iframe>
+    </div>
+</div>
+
+<script>
+function sendMsg(event) {
+    event.preventDefault();
+    alert("Your message has been sent successfully!");
+}
+</script>
+
+</body>
+</html>
