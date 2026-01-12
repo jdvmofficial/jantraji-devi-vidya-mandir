@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JANTRAJI DEVI VIDYA MANDIR</title>
+
 <link rel="icon" type="image/png" href="logo.png">
 
 <style>
@@ -48,13 +49,18 @@ body{ padding-top:38px; }
     padding:15px 25px;
     color:white;
     font-size:18px;
+    flex-wrap:wrap;
 }
 
-.navbar a{
+.nav-links a{
     color:white;
     text-decoration:none;
     margin:0 10px;
 }
+
+/* Highlight ACADEMIX */
+
+
 
 /* ===== SCHOOL TITLE ===== */
 h1{
@@ -66,7 +72,7 @@ h1{
     margin:0;
 }
 
-/* ===== TWO IMAGES ===== */
+/* ===== IMAGES ===== */
 .image-row{
     display:flex;
     gap:20px;
@@ -99,7 +105,6 @@ h1{
     object-fit:cover;
 }
 
-/* Buttons */
 .prev,.next{
     cursor:pointer;
     position:absolute;
@@ -114,7 +119,6 @@ h1{
 .prev{ left:10px; }
 .next{ right:10px; }
 
-/* Dots */
 .dots-container{
     text-align:center;
     margin-top:10px;
@@ -145,7 +149,7 @@ footer{
 @media(max-width:768px){
     .image-row img{ width:90%; }
     .navbar{ flex-direction:column; align-items:center; }
-    .navbar div{ margin:6px 0; }
+    .nav-links{ margin-top:10px; }
     h1{ font-size:24px; }
 }
 </style>
@@ -153,26 +157,24 @@ footer{
 
 <body>
 
-<!-- ===== NOTICE BAR ===== -->
 <div class="notice-bar">
     <div class="notice-text">
-       Important notice -> Admissions are going to be Opened 2026–27 | Nursery to Class 8 | Prospectus Available in Office | Limited Seats — register Now
+       Important notice → Admissions Open 2026–27 | Nursery to Class 8 | Prospectus Available | Limited Seats — Register Now
     </div>
 </div>
 
-<!-- ===== NAVBAR ===== -->
 <div class="navbar">
     <div><b>J.D.V.M. LAMBHUA</b></div>
-    <div>
-        <a href="index.html">Home</a>
-        <a href="student-login.html">ACADEMIX</a>
-        <a href="mangement.html">Management</a>
-        <a href="enroll.html">Enroll now</a>
-        <a href="paymentstructure.html">Pay online</a>
-        <a href="about.html">About</a>
-        <a href="events.html">Events</a>
-        <a href="gallery.html">Gallery</a>
-        <a href="contact.html">Contact</a>
+    <div class="nav-links">
+        <a href="./index.html">Home</a>
+        <a href="./student-login.html">ACADEMIX</a>
+        <a href="./mangement.html">Management</a>
+        <a href="./enroll.html">Enroll Now</a>
+        <a href="./paymentstructure.html">Pay Online</a>
+        <a href="./about.html">About</a>
+        <a href="./events.html">Events</a>
+        <a href="./gallery.html">Gallery</a>
+        <a href="./contact.html">Contact</a>
     </div>
 </div>
 
@@ -181,26 +183,24 @@ footer{
 JANTRAJI DEVI VIDYA MANDIR
 </h1>
 
-<!-- IMAGES -->
 <div class="image-row">
     <img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/Jdvm/IMG-20251124-WA0020.jpg?raw=true">
     <img src="Copy of Light Blue and Brown Playful School Admission Flyer.jpg">
 </div>
 
-<!-- SLIDESHOW -->
 <div class="slideshow-container">
-<div class="slide"><img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/Jdvm/IMG-20251124-WA0032.jpg?raw=true"></div>
-<div class="slide"><img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/Jdvm/IMG-20251124-WA0040.jpg?raw=true"></div>
-<div class="slide"><img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/Jdvm/IMG-20251124-WA0019.jpg?raw=true"></div>
+    <div class="slide"><img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/Jdvm/IMG-20251124-WA0032.jpg?raw=true"></div>
+    <div class="slide"><img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/Jdvm/IMG-20251124-WA0040.jpg?raw=true"></div>
+    <div class="slide"><img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/Jdvm/IMG-20251124-WA0019.jpg?raw=true"></div>
 
-<div class="prev" onclick="plusSlides(-1)">❮</div>
-<div class="next" onclick="plusSlides(1)">❯</div>
+    <div class="prev" onclick="plusSlides(-1)">❮</div>
+    <div class="next" onclick="plusSlides(1)">❯</div>
 </div>
 
 <div class="dots-container">
-<span class="dot" onclick="currentSlide(1)"></span>
-<span class="dot" onclick="currentSlide(2)"></span>
-<span class="dot" onclick="currentSlide(3)"></span>
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
 </div>
 
 <footer>
@@ -231,6 +231,7 @@ setInterval(()=>{plusSlides(1);},4000);
 
 </body>
 </html>
+
 
 
 
