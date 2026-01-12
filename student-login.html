@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ACADEMIX Student Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+<style>
+body{
+    margin:0;
+    background:#8B0000;
+    font-family:Arial,sans-serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:100vh;
+    color:white;
+}
+
+.login{
+    background:white;
+    color:black;
+    padding:30px;
+    border-radius:10px;
+    width:100%;
+    max-width:350px;
+}
+
+h2{
+    text-align:center;
+    color:#8B0000;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-top:12px;
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    margin-top:20px;
+    background:#8B0000;
+    color:white;
+    border:none;
+    border-radius:6px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+#error{
+    margin-top:10px;
+    color:red;
+    text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="login">
+<h2>Student Login</h2>
+
+<input id="enroll" placeholder="Enrollment Number">
+<input id="name" placeholder="Student Name">
+
+<button onclick="loginStudent()">Login</button>
+<div id="error"></div>
+</div>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyClB9tZ1ClSyTa27rqDy-TtXSXFKOygy4k",
+  authDomain: "academix-d221e.firebaseapp.com",
+  projectId: "academix-d221e",
+  storageBucket: "academix-d221e.firebasestorage.app",
+  messagingSenderId: "285941718942",
+  appId: "1:285941718942:web:57b3bbd7773c02a511808f"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+function loginStudent(){
+    const enroll = document.getElementById("enroll").value.trim();
+    const name = document.getElementById("name").value.trim();
+    const error = document.getElementById("error");
+
+    error.innerText = "";
+
+    if(!enroll || !name){
+        error.innerText = "Please fill all fields";
+        return;
+    }
+
+    db.collection("students").doc(enroll).get()
+    .then(doc=>{
+        if(!doc.exists){
+            error.innerText = "Student not found";
+            return;
+        }
+
+        const data = doc.data();
+
+        if(data.name.trim().toLowerCase() === name.toLowerCase()){
+            localStorage.setItem("student_enroll", enroll);
+            window.location.href = "student.html";
+        } else {
+            error.innerText = "Incorrect name";
+        }
+    })
+    .catch(err=>{
+        error.innerText = "Error: " + err.message;
+    });
+}
+</script>
+
+</body>
+</html>

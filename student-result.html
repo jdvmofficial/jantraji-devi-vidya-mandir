@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ACADEMIX — Results</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#8B0000;
+    color:white;
+}
+
+.header{
+    background:#7a0000;
+    padding:15px;
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.container{
+    padding:20px;
+    max-width:800px;
+    margin:auto;
+}
+
+.exam{
+    background:white;
+    color:black;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:12px;
+}
+
+.exam-title{
+    font-weight:bold;
+    cursor:pointer;
+    color:#8B0000;
+}
+
+.marks{
+    margin-top:10px;
+    display:none;
+}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    padding:6px 0;
+    border-bottom:1px solid #ddd;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">My Results</div>
+
+<div class="container" id="resultBox"></div>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyClB9tZ1ClSyTa27rqDy-TtXSXFKOygy4k",
+  authDomain: "academix-d221e.firebaseapp.com",
+  projectId: "academix-d221e",
+  storageBucket: "academix-d221e.firebasestorage.app",
+  messagingSenderId: "285941718942",
+  appId: "1:285941718942:web:57b3bbd7773c02a511808f"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+const enroll = localStorage.getItem("student_enroll");
+if(!enroll){
+    location.href = "student-login.html";
+}
+
+db.collection("results").doc(enroll).get().then(doc=>{
+    if(!doc.exists){
+        resultBox.innerHTML = "No results available";
+        return;
+    }
+
+    const exams = doc.data().exams;
+
+    for(const examId in exams){
+        const exam = exams[examId];
+
+        let block = document.createElement("div");
+        block.className = "exam";
+
+        block.innerHTML = `
+            <div class="exam-title" onclick="this.nextElementSibling.style.display =
+                this.nextElementSibling.style.display==='none'?'block':'none'">
+                ${exam.examName}
+            </div>
+            <div class="marks">
+                ${Object.entries(exam.subjects).map(([sub,mark]) =>
+                    `<div class='row'><span>${sub}</span><span>${mark}</span></div>`
+                ).join("")}
+            </div>
+        `;
+
+        resultBox.appendChild(block);
+    }
+});
+</script>
+
+</body>
+</html>
