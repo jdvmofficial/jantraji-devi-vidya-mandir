@@ -1,242 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JANTRAJI DEVI VIDYA MANDIR</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JANTRAJI DEVI VIDYA MANDIR</title>
+    <link rel="icon" type="image/png" href="logo.png">
 
-<link rel="icon" type="image/png" href="logo.png">
+    <style>
+        :root {
+            --primary-blue: #0046ad;
+            --accent-yellow: #ffcc00;
+            --white: #ffffff;
+        }
 
-<style>
-body{
-    margin:0;
-    font-family:Arial, sans-serif;
-}
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            padding-top: 40px; /* Notice bar space */
+        }
 
-/* ===== NOTICE BAR ===== */
-.notice-bar{
-    position:fixed;
-    top:0;
-    width:100%;
-    background:#ffcc00;
-    color:#000;
-    padding:8px 0;
-    overflow:hidden;
-    z-index:9999;
-    font-weight:bold;
-    font-size:14px;
-}
+        /* ===== NOTICE BAR ===== */
+        .notice-bar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--accent-yellow);
+            color: #000;
+            padding: 10px 0;
+            overflow: hidden;
+            z-index: 9999;
+            font-weight: bold;
+            font-size: clamp(12px, 2vw, 14px);
+        }
 
-.notice-text{
-    white-space:nowrap;
-    display:inline-block;
-    animation:scrollNotice 18s linear infinite;
-}
+        .notice-text {
+            white-space: nowrap;
+            display: inline-block;
+            animation: scrollNotice 20s linear infinite;
+        }
 
-@keyframes scrollNotice{
-    0%{transform:translateX(100%);}
-    100%{transform:translateX(-100%);}
-}
+        @keyframes scrollNotice {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
 
-body{ padding-top:38px; }
+        /* ===== NAVBAR ===== */
+        .navbar {
+            background: var(--primary-blue);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            color: white;
+            gap: 15px;
+        }
 
-/* ===== NAVBAR ===== */
-.navbar{
-    background:#0046ad;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:15px 25px;
-    color:white;
-    font-size:18px;
-    flex-wrap:wrap;
-}
+        .nav-brand {
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
 
-.nav-links a{
-    color:white;
-    text-decoration:none;
-    margin:0 10px;
-}
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
 
-/* ===== SCHOOL TITLE (DESKTOP FIX HERE) ===== */
-h1{
-    background:#0056ff;
-    color:white;
-    margin:0;
-    padding:30px 20px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:25px;
-    font-size:36px;
-}
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 12px;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            transition: 0.3s;
+        }
 
-h1 img{
-    width:140px;          /* 👈 DESKTOP CONTROL */
-    max-width:140px;
-    height:auto;
-}
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
 
-/* ===== IMAGES ===== */
-.image-row{
-    display:flex;
-    gap:20px;
-    padding:20px;
-    justify-content:center;
-    flex-wrap:wrap;
-}
+        /* ===== MAIN HEADING & LOGO ===== */
+        .header-section {
+            background: #0056ff;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
 
-.image-row img{
-    width:40%;
-    min-width:280px;
-    border-radius:10px;
-}
+        .header-section img {
+            width: 120px;
+            height: auto;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+        }
 
-/* ===== SLIDESHOW ===== */
-.slideshow-container{
-    width:90%;
-    max-width:900px;
-    margin:25px auto;
-    position:relative;
-    overflow:hidden;
-    border-radius:10px;
-}
+        .header-section h1 {
+            margin: 0;
+            font-size: clamp(24px, 5vw, 42px);
+            text-transform: uppercase;
+        }
 
-.slide{ display:none; }
+        /* ===== IMAGE CONTENT SECTION ===== */
+        .content-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
 
-.slide img{
-    width:100%;
-    height:380px;
-    object-fit:cover;
-}
+        .image-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
 
-.prev,.next{
-    cursor:pointer;
-    position:absolute;
-    top:45%;
-    padding:12px;
-    color:white;
-    font-size:25px;
-    background:rgba(0,0,0,0.4);
-    border-radius:4px;
-}
+        .image-row img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
 
-.prev{ left:10px; }
-.next{ right:10px; }
+        /* ===== SLIDESHOW ===== */
+        .slideshow-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 30px auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
 
-/* ===== DOTS ===== */
-.dots-container{
-    text-align:center;
-    margin-top:10px;
-}
+        .slide img {
+            width: 100%;
+            height: clamp(250px, 50vh, 450px);
+            object-fit: cover;
+        }
 
-.dot{
-    height:13px;
-    width:13px;
-    background:#bbb;
-    display:inline-block;
-    border-radius:50%;
-    margin:5px;
-    cursor:pointer;
-}
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 16px;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            transition: 0.3s;
+        }
 
-.active{ background:#0046ad; }
+        .next { right: 0; border-radius: 3px 0 0 3px; }
+        .prev:hover, .next:hover { background: rgba(0,0,0,0.8); }
 
-/* ===== FOOTER ===== */
-footer{
-    background:#0046ad;
-    color:white;
-    padding:15px;
-    text-align:center;
-    margin-top:40px;
-}
+        .dots-container { text-align: center; margin: 15px 0; }
+        .dot {
+            height: 12px; width: 12px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .active { background-color: var(--primary-blue); }
 
-/* =========================
-   MOBILE PERFECT ALIGNMENT
-========================= */
-@media (max-width:768px){
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--primary-blue);
+            color: white;
+            padding: 25px 15px;
+            text-align: center;
+            font-size: 14px;
+        }
 
-.notice-bar{
-    font-size:13px;
-    padding:6px 0;
-}
+        /* =========================
+           RESPONSIVE ADJUSTMENTS
+        ========================= */
+        
+        /* Desktop (Screens wider than 1024px) */
+        @media (min-width: 1024px) {
+            .navbar {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 15px 50px;
+            }
+            .header-section {
+                flex-direction: row;
+                justify-content: center;
+                gap: 40px;
+            }
+        }
 
-/* Navbar */
-.navbar{
-    padding:12px 8px;
-    text-align:center;
-}
+        /* Tablet (768px to 1024px) */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .image-row { grid-template-columns: 1fr 1fr; }
+        }
 
-.navbar > div:first-child{
-    font-size:16px;
-    margin-bottom:6px;
-}
-
-/* Nav grid */
-.nav-links{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:8px;
-    width:100%;
-}
-
-.nav-links a{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:13px;
-    padding:8px 4px;
-    border-radius:8px;
-    background:rgba(255,255,255,0.18);
-}
-
-/* Heading mobile */
-h1{
-    flex-direction:column;
-    font-size:22px;
-    padding:14px 10px 18px;
-}
-
-h1 img{
-    width:64px;
-    margin-bottom:6px;
-}
-
-/* Images */
-.image-row{
-    padding:12px 8px;
-}
-
-.image-row img{
-    width:100%;
-    max-width:420px;
-}
-
-/* Slideshow */
-.slide img{
-    height:220px;
-}
-
-/* Footer */
-footer{
-    font-size:13px;
-    padding:12px 8px;
-    margin-top:25px;
-}
-}
-</style>
+        /* Mobile (Screens smaller than 768px) */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                width: 100%;
+            }
+            .nav-links a {
+                font-size: 12px;
+                padding: 10px 5px;
+                text-align: center;
+            }
+            .image-row { grid-template-columns: 1fr; }
+            .header-section { padding: 30px 15px; }
+        }
+    </style>
 </head>
 
 <body>
 
 <div class="notice-bar">
     <div class="notice-text">
-       Important notice → Admissions Open 2026–27 | Nursery to Class 8 | Prospectus Available | Limited Seats — Register Now
+        Important notice → Admissions Open 2026–27 | Nursery to Class 8 | Prospectus Available | Limited Seats — Register Now
     </div>
 </div>
 
 <div class="navbar">
-    <div><b>J.D.V.M. LAMBHUA</b></div>
+    <div class="nav-brand">J.D.V.M. LAMBHUA</div>
     <div class="nav-links">
         <a href="./index.html">Home</a>
         <a href="./student-login.html">ACADEMIX</a>
@@ -250,55 +248,62 @@ footer{
     </div>
 </div>
 
-<h1>
-<img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/logo.png?raw=true">
-JANTRAJI DEVI VIDYA MANDIR
-</h1>
-
-<div class="image-row">
-    <img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/Jdvm/IMG-20251124-WA0020.jpg?raw=true">
-    <img src="Copy of Light Blue and Brown Playful School Admission Flyer.jpg">
+<div class="header-section">
+    <img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/logo.png?raw=true" alt="School Logo">
+    <h1>Jantraji Devi Vidya Mandir</h1>
 </div>
 
-<div class="slideshow-container">
-    <div class="slide"><img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/Jdvm/IMG-20251124-WA0032.jpg?raw=true"></div>
-    <div class="slide"><img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/Jdvm/IMG-20251124-WA0040.jpg?raw=true"></div>
-    <div class="slide"><img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/Jdvm/IMG-20251124-WA0019.jpg?raw=true"></div>
+<div class="content-container">
+    <div class="image-row">
+        <img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/Jdvm/IMG-20251124-WA0020.jpg?raw=true" alt="School Image">
+        <img src="Copy of Light Blue and Brown Playful School Admission Flyer.jpg" alt="Admission Flyer">
+    </div>
 
-    <div class="prev" onclick="plusSlides(-1)">❮</div>
-    <div class="next" onclick="plusSlides(1)">❯</div>
-</div>
+    <div class="slideshow-container">
+        <div class="slide fade"><img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/Jdvm/IMG-20251124-WA0032.jpg?raw=true"></div>
+        <div class="slide fade"><img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/Jdvm/IMG-20251124-WA0040.jpg?raw=true"></div>
+        <div class="slide fade"><img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/Jdvm/IMG-20251124-WA0019.jpg?raw=true"></div>
 
-<div class="dots-container">
-    <span class="dot" onclick="currentSlide(1)"></span>
-    <span class="dot" onclick="currentSlide(2)"></span>
-    <span class="dot" onclick="currentSlide(3)"></span>
+        <a class="prev" onclick="plusSlides(-1)">❮</a>
+        <a class="next" onclick="plusSlides(1)">❯</a>
+    </div>
+
+    <div class="dots-container">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
 </div>
 
 <footer>
-© 2026 JANTRAJI DEVI VIDYA MANDIR — All Rights Reserved
+    © 2026 JANTRAJI DEVI VIDYA MANDIR — All Rights Reserved
 </footer>
 
 <script>
-let slideIndex=1;
+let slideIndex = 1;
 showSlides(slideIndex);
 
-function plusSlides(n){ showSlides(slideIndex+=n); }
-function currentSlide(n){ showSlides(slideIndex=n); }
+function plusSlides(n) { showSlides(slideIndex += n); }
+function currentSlide(n) { showSlides(slideIndex = n); }
 
-function showSlides(n){
-let i;
-let slides=document.getElementsByClassName("slide");
-let dots=document.getElementsByClassName("dot");
-if(n>slides.length){slideIndex=1}
-if(n<1){slideIndex=slides.length}
-for(i=0;i<slides.length;i++){slides[i].style.display="none";}
-for(i=0;i<dots.length;i++){dots[i].classList.remove("active");}
-slides[slideIndex-1].style.display="block";
-dots[slideIndex-1].classList.add("active");
+function showSlides(n) {
+    let i;
+    let slides = document.getElementsByClassName("slide");
+    let dots = document.getElementsByClassName("dot");
+    if (n > slides.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = slides.length}
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex-1].style.display = "block";
+    dots[slideIndex-1].className += " active";
 }
 
-setInterval(()=>{plusSlides(1);},4000);
+// Auto Slide
+setInterval(() => { plusSlides(1); }, 5000);
 </script>
 
 </body>
