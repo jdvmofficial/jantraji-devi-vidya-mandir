@@ -58,10 +58,6 @@ body{ padding-top:38px; }
     margin:0 10px;
 }
 
-/* Highlight ACADEMIX */
-
-
-
 /* ===== SCHOOL TITLE ===== */
 h1{
     background:#0056ff;
@@ -145,12 +141,76 @@ footer{
     margin-top:40px;
 }
 
-/* ===== RESPONSIVE ===== */
-@media(max-width:768px){
-    .image-row img{ width:90%; }
-    .navbar{ flex-direction:column; align-items:center; }
-    .nav-links{ margin-top:10px; }
-    h1{ font-size:24px; }
+/* =========================
+   MOBILE REFINEMENT ONLY
+   (NO STRUCTURE CHANGE)
+========================= */
+@media (max-width:768px){
+
+.notice-bar{
+    font-size:13px;
+    padding:6px 0;
+}
+
+/* Navbar polish */
+.navbar{
+    padding:10px;
+    text-align:center;
+}
+
+.nav-links{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:8px;
+    margin-top:8px;
+}
+
+.nav-links a{
+    font-size:14px;
+    padding:6px 10px;
+    background:rgba(255,255,255,0.15);
+    border-radius:6px;
+}
+
+/* School heading */
+h1{
+    font-size:22px;
+    padding:15px 10px;
+    line-height:1.3;
+}
+
+h1 img{
+    width:70px;
+    display:block;
+    margin:0 auto 8px;
+}
+
+/* Images */
+.image-row{
+    padding:10px;
+}
+
+.image-row img{
+    width:100%;
+    max-width:420px;
+}
+
+/* Slideshow */
+.slide img{
+    height:240px;
+}
+
+.prev,.next{
+    font-size:20px;
+    padding:8px;
+}
+
+/* Footer */
+footer{
+    font-size:13px;
+    padding:12px 8px;
+}
 }
 </style>
 </head>
@@ -231,10 +291,3 @@ setInterval(()=>{plusSlides(1);},4000);
 
 </body>
 </html>
-
-
-
-
-
-
-
