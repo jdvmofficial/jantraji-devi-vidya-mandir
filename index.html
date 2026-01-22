@@ -12,20 +12,28 @@
             --accent-yellow: #ffcc00;
         }
 
+        * {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             padding-top: 40px;
-            
-            /* ===== BACKGROUND IMAGE SECTION ===== */
-            /* Yahan 'background-image' mein apni image ka URL daalein */
+            animation: pageFade 1s ease-in-out;
+
             background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), 
                               url('Copy of Light Blue and Brown Playful School Admission Flyer.jpg'); 
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* Isse image scroll nahi hogi, professional lagti hai */
+            background-attachment: fixed;
             background-repeat: no-repeat;
+        }
+
+        @keyframes pageFade {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         /* ===== NOTICE BAR ===== */
@@ -63,6 +71,18 @@
             color: white;
             gap: 15px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: navDrop 0.8s ease-out;
+        }
+
+        @keyframes navDrop {
+            from {
+                transform: translateY(-40px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .nav-brand {
@@ -86,13 +106,26 @@
             background: rgba(255, 255, 255, 0.1);
             border-radius: 5px;
             transition: 0.3s;
+            position: relative;
+            overflow: hidden;
         }
 
-        .nav-links a:hover { background: rgba(255, 255, 255, 0.3); }
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(255,255,255,0.2);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
 
-        /* ===== MAIN HEADING & LOGO ===== */
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* ===== HEADER ===== */
         .header-section {
-            background: rgba(0, 86, 255, 0.9); /* Halka transparent blue */
+            background: rgba(0, 86, 255, 0.9);
             color: white;
             padding: 40px 20px;
             text-align: center;
@@ -100,11 +133,22 @@
             flex-direction: column;
             align-items: center;
             gap: 15px;
+            animation: headerZoom 1s ease forwards;
+        }
+
+        @keyframes headerZoom {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .header-section img {
             width: 120px;
-            height: auto;
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
         }
 
@@ -112,10 +156,9 @@
             margin: 0;
             font-size: clamp(24px, 5vw, 42px);
             text-transform: uppercase;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
-        /* ===== CONTENT SECTION ===== */
+        /* ===== CONTENT ===== */
         .content-container {
             max-width: 1200px;
             margin: 20px auto;
@@ -126,81 +169,103 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
-            margin-bottom: 30px;
         }
 
-        .image-row img {
+        .image-row img,
+        .slide img {
             width: 100%;
             height: 300px;
             object-fit: cover;
             border-radius: 12px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .image-row img:hover,
+        .slide img:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
         }
 
         /* ===== SLIDESHOW ===== */
         .slideshow-container {
-            width: 100%;
             max-width: 1000px;
             margin: 30px auto;
-            position: relative;
             overflow: hidden;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.25);
             background: white;
         }
 
-        .slide img {
-            width: 100%;
-            height: clamp(250px, 50vh, 450px);
-            object-fit: cover;
+        .slide {
+            animation: slideFade 0.8s ease-in-out;
+        }
+
+        @keyframes slideFade {
+            from { opacity: 0.4; }
+            to { opacity: 1; }
         }
 
         .prev, .next {
             cursor: pointer;
             position: absolute;
             top: 50%;
-            transform: translateY(-50%);
             padding: 16px;
             color: white;
-            font-weight: bold;
             font-size: 20px;
             background: rgba(0,0,0,0.5);
-            border-radius: 5px;
-            user-select: none;
         }
 
-        .next { right: 0; }
-        .prev:hover, .next:hover { background: rgba(0,0,0,0.8); }
+        .dots-container {
+            text-align: center;
+            margin: 15px 0;
+        }
 
-        .dots-container { text-align: center; margin: 15px 0; }
         .dot {
-            height: 12px; width: 12px;
-            margin: 0 5px;
+            height: 12px;
+            width: 12px;
             background-color: #bbb;
             border-radius: 50%;
             display: inline-block;
-            cursor: pointer;
+            margin: 0 5px;
         }
-        .active { background-color: var(--primary-blue); }
 
-        /* ===== FOOTER ===== */
+        .dot.active {
+            background-color: var(--primary-blue);
+            animation: dotPulse 1s infinite alternate;
+        }
+
+        @keyframes dotPulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.3); }
+        }
+
         footer {
             background: var(--primary-blue);
             color: white;
-            padding: 25px 15px;
+            padding: 25px;
             text-align: center;
-            font-size: 14px;
-            margin-top: 40px;
+            animation: footerUp 1s ease;
         }
 
-        /* RESPONSIVE */
+        @keyframes footerUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         @media (min-width: 1024px) {
             .navbar { flex-direction: row; justify-content: space-between; padding: 15px 50px; }
-            .header-section { flex-direction: row; justify-content: center; gap: 40px; }
+            .header-section { flex-direction: row; gap: 40px; }
         }
+
         @media (max-width: 768px) {
-            .nav-links { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; }
-            .nav-links a { font-size: 12px; padding: 10px 5px; text-align: center; }
+            .nav-links { display: grid; grid-template-columns: repeat(3, 1fr); }
         }
     </style>
 </head>
@@ -209,7 +274,7 @@
 
 <div class="notice-bar">
     <div class="notice-text">
-        Important notice → Admissions Open 2026–27 | Nursery to Class 8 | Prospectus Available | Limited Seats — Register Now
+        Important notice → Admissions Open 2026–27 | Nursery to Class 8 | Limited Seats Available
     </div>
 </div>
 
@@ -229,54 +294,13 @@
 </div>
 
 <div class="header-section">
-    <img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/logo.png?raw=true" alt="School Logo">
+    <img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/logo.png?raw=true">
     <h1>Jantraji Devi Vidya Mandir</h1>
-</div>
-
-<div class="content-container">
-    <div class="image-row">
-        <img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/Jdvm/IMG-20251124-WA0020.jpg?raw=true" alt="School Image">
-        <img src="Copy of Light Blue and Brown Playful School Admission Flyer.jpg" alt="Admission Flyer">
-    </div>
-
-    <div class="slideshow-container">
-        <div class="slide"><img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/Jdvm/IMG-20251124-WA0032.jpg?raw=true"></div>
-        <div class="slide"><img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/Jdvm/IMG-20251124-WA0040.jpg?raw=true"></div>
-        <div class="slide"><img src="https://github.com/jdvmofficial/jantraji-devi-vidya-mandir/blob/main/Jdvm/IMG-20251124-WA0019.jpg?raw=true"></div>
-
-        <a class="prev" onclick="plusSlides(-1)">❮</a>
-        <a class="next" onclick="plusSlides(1)">❯</a>
-    </div>
-
-    <div class="dots-container">
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
-    </div>
 </div>
 
 <footer>
     © 2026 JANTRAJI DEVI VIDYA MANDIR — All Rights Reserved
 </footer>
-
-<script>
-let slideIndex = 1;
-showSlides(slideIndex);
-function plusSlides(n) { showSlides(slideIndex += n); }
-function currentSlide(n) { showSlides(slideIndex = n); }
-function showSlides(n) {
-    let i;
-    let slides = document.getElementsByClassName("slide");
-    let dots = document.getElementsByClassName("dot");
-    if (n > slides.length) {slideIndex = 1}
-    if (n < 1) {slideIndex = slides.length}
-    for (i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
-    for (i = 0; i < dots.length; i++) { dots[i].className = dots[i].className.replace(" active", ""); }
-    slides[slideIndex-1].style.display = "block";
-    dots[slideIndex-1].className += " active";
-}
-setInterval(() => { plusSlides(1); }, 5000);
-</script>
 
 </body>
 </html>
