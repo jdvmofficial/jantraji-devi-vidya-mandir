@@ -202,79 +202,6 @@
             .nav-links { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; }
             .nav-links a { font-size: 12px; padding: 10px 5px; text-align: center; }
         }
-        /* ===== SAFE PROFESSIONAL ANIMATIONS (NO STRUCTURE CHANGE) ===== */
-
-/* Page load fade */
-body {
-    animation: pageFade 0.8s ease-in-out;
-}
-
-@keyframes pageFade {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* Navbar slide */
-.navbar {
-    animation: navDrop 0.8s ease-out;
-}
-
-@keyframes navDrop {
-    from { transform: translateY(-30px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-/* Header smooth appear */
-.header-section {
-    animation: headerFade 1s ease;
-}
-
-@keyframes headerFade {
-    from { opacity: 0; transform: scale(0.96); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-/* Image hover lift */
-.image-row img,
-.slide img {
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-
-.image-row img:hover,
-.slide img:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 14px 30px rgba(0,0,0,0.3);
-}
-
-/* Navbar link glow */
-.nav-links a {
-    transition: background 0.3s ease, transform 0.3s ease;
-}
-
-.nav-links a:hover {
-    transform: translateY(-2px);
-}
-
-/* Slideshow smooth fade */
-.slide {
-    animation: slideFade 0.6s ease;
-}
-
-@keyframes slideFade {
-    from { opacity: 0.5; }
-    to { opacity: 1; }
-}
-
-/* Active dot pulse */
-.dot.active {
-    animation: dotPulse 1s infinite alternate;
-}
-
-@keyframes dotPulse {
-    from { transform: scale(1); }
-    to { transform: scale(1.25); }
-}
-
     </style>
 </head>
 
@@ -349,25 +276,6 @@ function showSlides(n) {
     dots[slideIndex-1].className += " active";
 }
 setInterval(() => { plusSlides(1); }, 5000);
-    // Smooth reveal on scroll (SAFE)
-const reveal = document.querySelectorAll('.image-row img, .slideshow-container');
-
-const revealObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = 1;
-            entry.target.style.transform = "translateY(0)";
-        }
-    });
-}, { threshold: 0.2 });
-
-reveal.forEach(el => {
-    el.style.opacity = 0;
-    el.style.transform = "translateY(25px)";
-    el.style.transition = "0.8s ease";
-    revealObserver.observe(el);
-});
-
 </script>
 
 </body>
