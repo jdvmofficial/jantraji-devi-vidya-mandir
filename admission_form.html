@@ -1,150 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admission Form | JDVM Lambhua</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admission Form | JDVM Lambhua</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #8B0000; --accent: #FF3E3E; --bg: #f8fafc; --card: #ffffff; --text: #1e293b; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
+        
+        .form-container { max-width: 850px; margin: auto; background: var(--card); padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 8px solid var(--primary); }
+        
+        .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 20px; }
+        .header h1 { margin: 0; color: var(--primary); font-size: 28px; font-weight: 800; }
+        .header p { margin: 5px 0; opacity: 0.8; font-weight: 600; }
 
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+        .section-title { background: #f1f5f9; padding: 10px 15px; border-radius: 8px; margin: 25px 0 15px 0; font-weight: 700; color: var(--primary); display: flex; align-items: center; }
+        
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+        label { display: block; margin-bottom: 5px; font-size: 13px; font-weight: 700; color: #475569; }
+        input, select, textarea { width: 100%; padding: 12px; border: 1.5px solid #cbd5e1; border-radius: 10px; font-size: 14px; box-sizing: border-box; }
+        input:focus { border-color: var(--primary); outline: none; background: #fffcfc; }
 
-<style>
-:root { --primary:#8B0000; --accent:#FF3E3E; --bg:#f8fafc; --card:#fff; --text:#1e293b; }
-body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); margin:0; padding:20px; }
-.form-container { max-width:850px; margin:auto; background:var(--card); padding:40px; border-radius:20px; box-shadow:0 10px 30px rgba(0,0,0,0.1); border-top:8px solid var(--primary); }
-.header { text-align:center; margin-bottom:30px; border-bottom:2px solid #eee; padding-bottom:20px; }
-.header h1 { margin:0; color:var(--primary); font-size:28px; font-weight:800; }
-.section-title { background:#f1f5f9; padding:10px 15px; border-radius:8px; margin:25px 0 15px; font-weight:700; color:var(--primary); }
-.grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
-@media(max-width:600px){ .grid{grid-template-columns:1fr;} }
-label { font-size:13px; font-weight:700; color:#475569; }
-input,select,textarea { width:100%; padding:12px; border:1.5px solid #cbd5e1; border-radius:10px; font-size:14px; }
-.submit-btn { width:100%; padding:16px; background:var(--primary); color:#fff; border:none; border-radius:12px; font-size:16px; font-weight:800; cursor:pointer; margin-top:20px; }
-.submit-btn:hover { background:var(--accent); }
-#overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); backdrop-filter:blur(5px); z-index:1000; justify-content:center; align-items:center; color:#fff; text-align:center; }
-</style>
+        .fee-info { background: #fff1f1; border: 1px dashed var(--primary); padding: 15px; border-radius: 10px; margin: 20px 0; text-align: center; }
+        
+        .submit-btn { width: 100%; padding: 16px; background: var(--primary); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 800; cursor: pointer; transition: 0.3s; margin-top: 20px; }
+        .submit-btn:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(139, 0, 0, 0.3); }
+
+        /* Success Message Overlay */
+        #overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 1000; justify-content: center; align-items: center; color: white; text-align: center; }
+    </style>
 </head>
-
 <body>
 
 <div id="overlay">
-  <div>
-    <h2>✅ Submission Successful</h2>
-    <p>Your PDF is downloading…</p>
-    <button onclick="location.reload()">Fill Another Form</button>
-  </div>
+    <div>
+        <h2>✅ Submission Successful!</h2>
+        <p>Your Admission Form PDF is downloading...</p>
+        <button onclick="location.reload()" style="padding: 10px 20px; margin-top: 20px; cursor: pointer;">Fill Another Form</button>
+    </div>
 </div>
 
 <div class="form-container">
-<div class="header">
-<h1>JANTRAJI DEVI VIDYA MANDIR</h1>
-<p>LAMBHUA, SULTANPUR, UTTAR PRADESH</p>
-<small>Session 2026–27</small>
-</div>
+    <div class="header">
+        <h1>JANTRAJI DEVI VIDYA MANDIR</h1>
+        <p>LAMBHUA, SULTANPUR, UTTAR PRADESH</p>
+        <small>Registration for Academic Session 2026-27</small>
+    </div>
 
-<form id="admissionForm">
+    <form id="admissionForm">
+        <div class="section-title">1. Student Details</div>
+        <div class="grid">
+            <div>
+                <label>Full Name of Applicant*</label>
+                <input type="text" id="name" required placeholder="Enter full name">
+            </div>
+            <div>
+                <label>Date of Birth*</label>
+                <input type="date" id="dob" required>
+            </div>
+            <div>
+                <label>Gender*</label>
+                <select id="gender" required>
+                    <option value="">Select Gender</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                </select>
+            </div>
+            <div>
+                <label>Class for Admission*</label>
+                <select id="class" required>
+                    <option value="">Select Class</option>
+                    <option>PG</option><option>LKG</option><option>UKG</option><option>Class-1st</option><option>Class-2nd</option><option>Class-3rd</option>
+                    <option>Class-4rth</option><option>Class-5th</option><option>Class-6th</option><option>Class-7th</option>
+                    <option>Class-8th</option>
+                </select>
+            </div>
+        </div>
 
-<div class="section-title">1. Student Details</div>
-<div class="grid">
-<input id="name" placeholder="Student Name" required>
-<input type="date" id="dob" required>
-<select id="gender" required><option value="">Gender</option><option>Male</option><option>Female</option><option>Other</option></select>
-<select id="class" required>
-<option value="">Class</option>
-<option>PG</option><option>LKG</option><option>UKG</option>
-<option>Class-1st</option><option>Class-2nd</option><option>Class-3rd</option>
-<option>Class-4th</option><option>Class-5th</option>
-<option>Class-6th</option><option>Class-7th</option><option>Class-8th</option>
-</select>
-<input type="file" id="photo" accept="image/*" required>
-</div>
+        <div class="section-title">2. Parent / Guardian Details</div>
+        <div class="grid">
+            <div>
+                <label>Father's Name*</label>
+                <input type="text" id="father" required>
+            </div>
+            <div>
+                <label>Mother's Name*</label>
+                <input type="text" id="mother" required>
+            </div>
+            <div>
+                <label>Contact Mobile Number*</label>
+                <input type="tel" id="mobile" pattern="[0-9]{10}" required placeholder="10 Digit Number">
+            </div>
+            <div>
+                <label>WhatsApp Number</label>
+                <input type="tel" id="whatsapp">
+            </div>
+        </div>
 
-<div class="section-title">2. Parent Details</div>
-<div class="grid">
-<input id="father" placeholder="Father Name" required>
-<input id="mother" placeholder="Mother Name" required>
-<input id="mobile" placeholder="Mobile" pattern="[0-9]{10}" required>
-<input id="whatsapp" placeholder="WhatsApp">
-</div>
+        <div class="section-title">3. Address & Additional Info</div>
+        <label>Full Residential Address*</label>
+        <textarea id="address" rows="3" required placeholder="Village/Post, City, District, PIN"></textarea>
+        
+        <div class="grid" style="margin-top:15px">
+            <div>
+                <label>Category</label>
+                <select id="category">
+                    <option>General</option><option>OBC</option><option>SC/ST</option>
+                </select>
+            </div>
+            <div>
+                <label>Aadhar Number (Optional)</label>
+                <input type="text" id="aadhar" placeholder="12 Digit Aadhar">
+            </div>
+        </div>
 
-<div class="section-title">3. Address</div>
-<textarea id="address" rows="3" required></textarea>
+        <div class="fee-info">
+            <b style="color:var(--primary)">Note:</b> Registration Fee of <b>₹100</b> is applicable. 
+            <br><small>(For now, payment is deferred. You can submit the form directly.)</small>
+        </div>
 
-<div class="grid" style="margin-top:15px">
-<select id="category"><option>General</option><option>OBC</option><option>SC/ST</option></select>
-<input id="aadhar" placeholder="Aadhaar (optional)">
-</div>
-
-<button class="submit-btn">SUBMIT FORM</button>
-</form>
+        <button type="submit" class="submit-btn">PROCEED & SUBMIT FORM</button>
+    </form>
 </div>
 
 <script>
-const overlay = document.getElementById("overlay");
+    // --- Firebase Configuration ---
+    const firebaseConfig = {
+        apiKey: "AIzaSyClB9tZ1ClSyTa27rqDy-TtXSXFKOygy4k",
+        authDomain: "academix-d221e.firebaseapp.com",
+        projectId: "academix-d221e",
+        storageBucket: "academix-d221e.firebasestorage.app",
+        messagingSenderId: "285941718942",
+        appId: "1:285941718942:web:57b3bbd7773c02a511808f"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-// Firebase Init
-firebase.initializeApp({
-apiKey:"AIzaSyClB9tZ1ClSyTa27rqDy-TtXSXFKOygy4k",
-authDomain:"academix-d221e.firebaseapp.com",
-projectId:"academix-d221e",
-storageBucket:"academix-d221e.firebasestorage.app"
-});
-const db=firebase.firestore();
-const storage=firebase.storage();
+    const form = document.getElementById('admissionForm');
 
-// Aadhaar Validation
-function validateAadhaar(a){
-if(!/^\d{12}$/.test(a))return false;
-const d=[[0,1,2,3,4,5,6,7,8,9],[1,2,3,4,0,6,7,8,9,5],[2,3,4,0,1,7,8,9,5,6],[3,4,0,1,2,8,9,5,6,7],[4,0,1,2,3,9,5,6,7,8],[5,9,8,7,6,0,4,3,2,1],[6,5,9,8,7,1,0,4,3,2],[7,6,5,9,8,2,1,0,4,3],[8,7,6,5,9,3,2,1,0,4],[9,8,7,6,5,4,3,2,1,0]];
-const p=[[0,1,2,3,4,5,6,7,8,9],[1,5,7,6,2,8,3,0,9,4],[5,8,0,3,7,9,6,1,4,2],[8,9,1,6,0,4,3,5,2,7],[9,4,5,3,1,2,6,8,7,0],[4,2,8,6,5,7,3,9,0,1],[2,7,9,3,8,0,6,4,1,5],[7,0,4,6,9,1,3,2,5,8]];
-let c=0; a=a.split('').reverse().map(Number);
-for(let i=0;i<a.length;i++) c=d[c][p[i%8][a[i]]];
-return c===0;
-}
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = {
+            name: document.getElementById('name').value,
+            dob: document.getElementById('dob').value,
+            gender: document.getElementById('gender').value,
+            class: document.getElementById('class').value,
+            father: document.getElementById('father').value,
+            mother: document.getElementById('mother').value,
+            mobile: document.getElementById('mobile').value,
+            whatsapp: document.getElementById('whatsapp').value,
+            address: document.getElementById('address').value,
+            category: document.getElementById('category').value,
+            aadhar: document.getElementById('aadhar').value,
+            submittedAt: new Date().toLocaleString(),
+            status: "NEW"
+        };
 
-// Submit
-document.getElementById("admissionForm").addEventListener("submit", async e=>{
-e.preventDefault();
-try{
-const aad=aadhar.value;
-if(aad && !validateAadhaar(aad)){ alert("Invalid Aadhaar"); return; }
+        try {
+            // 1. Save to Firebase "new_requests" collection
+            await db.collection("new_requests").add(formData);
 
-const photo=photo.files[0];
-const ref=storage.ref("students/"+Date.now()+"_"+photo.name);
-await ref.put(photo);
-const photoURL=await ref.getDownloadURL();
+            // 2. Generate PDF for the user
+            generatePDF(formData);
 
-const data={name:name.value,dob:dob.value,gender:gender.value,class:class.value,
-father:father.value,mother:mother.value,mobile:mobile.value,whatsapp:whatsapp.value,
-address:address.value,category:category.value,aadhar:aad||"N/A",
-photoURL,submittedAt:new Date().toLocaleString(),status:"NEW"};
+            // 3. Show Success Message
+            document.getElementById('overlay').style.display = 'flex';
+            
+        } catch (error) {
+            alert("Error submitting form: " + error.message);
+        }
+    });
 
-await db.collection("new_requests").add(data);
-generatePDF(data);
-overlay.style.display="flex";
+    function generatePDF(data) {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
 
-}catch(err){
-alert("Submission failed: "+err.message);
-console.error(err);
-}
-});
+        // --- PDF Header ---
+        doc.setFillColor(139, 0, 0); // Primary Dark Red
+        doc.rect(0, 0, 210, 40, 'F');
+        
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(22);
+        doc.setFont("helvetica", "bold");
+        doc.text("JANTRAJI DEVI VIDYA MANDIR", 105, 20, { align: "center" });
+        
+        doc.setFontSize(10);
+        doc.text("LAMBHUA, SULTANPUR, UTTAR PRADESH | Academic Session 2026-27", 105, 30, { align: "center" });
 
-// PDF
-function generatePDF(d){
-const{jsPDF}=window.jspdf; const doc=new jsPDF();
-doc.text("JANTRAJI DEVI VIDYA MANDIR",105,20,{align:"center"});
-doc.addImage(d.photoURL,"JPEG",150,30,40,40);
-doc.autoTable({startY:80,head:[["Field","Value"]],body:Object.entries(d)});
-doc.save(d.name+"_Admission.pdf");
-}
+        // --- Admission Details Title ---
+        doc.setTextColor(0, 0, 0);
+        doc.setFontSize(16);
+        doc.text("ADMISSION REGISTRATION SLIP", 105, 55, { align: "center" });
+        
+        // --- Table for Details ---
+        const tableBody = [
+            ["Applicant Name", data.name],
+            ["Date of Birth", data.dob],
+            ["Gender", data.gender],
+            ["Class Applied", data.class],
+            ["Father's Name", data.father],
+            ["Mother's Name", data.mother],
+            ["Mobile Number", data.mobile],
+            ["Address", data.address],
+            ["Category", data.category],
+            ["Aadhar Number", data.aadhar || "N/A"],
+            ["Submission Date", data.submittedAt]
+        ];
+
+        doc.autoTable({
+            startY: 65,
+            head: [['Field', 'Information']],
+            body: tableBody,
+            theme: 'striped',
+            headStyles: { fillColor: [139, 0, 0] },
+            styles: { fontSize: 11, cellPadding: 5 }
+        });
+
+        // --- Footer ---
+        doc.setFontSize(10);
+        doc.setTextColor(100);
+        const finalY = doc.lastAutoTable.finalY + 20;
+        doc.text("Note: Please bring this slip to the school office for further process.", 20, finalY);
+        doc.text("This is a computer-generated document.", 20, finalY + 10);
+
+        // Save PDF
+        doc.save(`${data.name}_Admission_Form.pdf`);
+    }
 </script>
 
 </body>
-</html>
+</html> 
 
