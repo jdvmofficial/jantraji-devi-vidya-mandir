@@ -17,23 +17,16 @@
 <style>
 :root { --primary:#8B0000; --accent:#FF3E3E; --bg:#f8fafc; --card:#fff; --text:#1e293b; }
 body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); margin:0; padding:20px; }
-
 .form-container { max-width:850px; margin:auto; background:var(--card); padding:40px; border-radius:20px; box-shadow:0 10px 30px rgba(0,0,0,0.1); border-top:8px solid var(--primary); }
-
 .header { text-align:center; margin-bottom:30px; border-bottom:2px solid #eee; padding-bottom:20px; }
 .header h1 { margin:0; color:var(--primary); font-size:28px; font-weight:800; }
-
 .section-title { background:#f1f5f9; padding:10px 15px; border-radius:8px; margin:25px 0 15px; font-weight:700; color:var(--primary); }
-
 .grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
 @media(max-width:600px){ .grid{grid-template-columns:1fr;} }
-
 label { font-size:13px; font-weight:700; color:#475569; }
 input,select,textarea { width:100%; padding:12px; border:1.5px solid #cbd5e1; border-radius:10px; font-size:14px; }
-
 .submit-btn { width:100%; padding:16px; background:var(--primary); color:#fff; border:none; border-radius:12px; font-size:16px; font-weight:800; cursor:pointer; margin-top:20px; }
 .submit-btn:hover { background:var(--accent); }
-
 #overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); backdrop-filter:blur(5px); z-index:1000; justify-content:center; align-items:center; color:#fff; text-align:center; }
 </style>
 </head>
@@ -43,7 +36,7 @@ input,select,textarea { width:100%; padding:12px; border:1.5px solid #cbd5e1; bo
 <div id="overlay">
   <div>
     <h2>✅ Submission Successful</h2>
-    <p>PDF is downloading…</p>
+    <p>Your PDF is downloading…</p>
     <button onclick="location.reload()">Fill Another Form</button>
   </div>
 </div>
@@ -59,75 +52,43 @@ input,select,textarea { width:100%; padding:12px; border:1.5px solid #cbd5e1; bo
 
 <div class="section-title">1. Student Details</div>
 <div class="grid">
-<div>
-<label>Full Name*</label>
-<input type="text" id="name" required>
-</div>
-
-<div>
-<label>Date of Birth*</label>
+<input id="name" placeholder="Student Name" required>
 <input type="date" id="dob" required>
-</div>
-
-<div>
-<label>Gender*</label>
-<select id="gender" required>
-<option value="">Select</option>
-<option>Male</option>
-<option>Female</option>
-<option>Other</option>
-</select>
-</div>
-
-<div>
-<label>Class*</label>
+<select id="gender" required><option value="">Gender</option><option>Male</option><option>Female</option><option>Other</option></select>
 <select id="class" required>
-<option value="">Select</option>
+<option value="">Class</option>
 <option>PG</option><option>LKG</option><option>UKG</option>
 <option>Class-1st</option><option>Class-2nd</option><option>Class-3rd</option>
 <option>Class-4th</option><option>Class-5th</option>
 <option>Class-6th</option><option>Class-7th</option><option>Class-8th</option>
 </select>
-</div>
-
-<div>
-<label>Student Photograph*</label>
 <input type="file" id="photo" accept="image/*" required>
-</div>
 </div>
 
 <div class="section-title">2. Parent Details</div>
 <div class="grid">
-<div><label>Father*</label><input id="father" required></div>
-<div><label>Mother*</label><input id="mother" required></div>
-<div><label>Mobile*</label><input id="mobile" pattern="[0-9]{10}" required></div>
-<div><label>WhatsApp</label><input id="whatsapp"></div>
+<input id="father" placeholder="Father Name" required>
+<input id="mother" placeholder="Mother Name" required>
+<input id="mobile" placeholder="Mobile" pattern="[0-9]{10}" required>
+<input id="whatsapp" placeholder="WhatsApp">
 </div>
 
 <div class="section-title">3. Address</div>
 <textarea id="address" rows="3" required></textarea>
 
 <div class="grid" style="margin-top:15px">
-<div>
-<label>Category</label>
-<select id="category">
-<option>General</option><option>OBC</option><option>SC/ST</option>
-</select>
-</div>
-<div>
-<label>Aadhaar (Optional)</label>
-<input id="aadhar" placeholder="12 Digit Aadhaar">
-</div>
+<select id="category"><option>General</option><option>OBC</option><option>SC/ST</option></select>
+<input id="aadhar" placeholder="Aadhaar (optional)">
 </div>
 
-<button class="submit-btn" type="submit">SUBMIT FORM</button>
+<button class="submit-btn">SUBMIT FORM</button>
 </form>
 </div>
 
 <script>
-  const overlay = document.getElementById("overlay");
+const overlay = document.getElementById("overlay");
 
-// Firebase
+// Firebase Init
 firebase.initializeApp({
 apiKey:"AIzaSyClB9tZ1ClSyTa27rqDy-TtXSXFKOygy4k",
 authDomain:"academix-d221e.firebaseapp.com",
@@ -137,7 +98,7 @@ storageBucket:"academix-d221e.firebasestorage.app"
 const db=firebase.firestore();
 const storage=firebase.storage();
 
-// Aadhaar validation (Verhoeff)
+// Aadhaar Validation
 function validateAadhaar(a){
 if(!/^\d{12}$/.test(a))return false;
 const d=[[0,1,2,3,4,5,6,7,8,9],[1,2,3,4,0,6,7,8,9,5],[2,3,4,0,1,7,8,9,5,6],[3,4,0,1,2,8,9,5,6,7],[4,0,1,2,3,9,5,6,7,8],[5,9,8,7,6,0,4,3,2,1],[6,5,9,8,7,1,0,4,3,2],[7,6,5,9,8,2,1,0,4,3],[8,7,6,5,9,3,2,1,0,4],[9,8,7,6,5,4,3,2,1,0]];
@@ -148,27 +109,30 @@ return c===0;
 }
 
 // Submit
-document.getElementById("admissionForm").addEventListener("submit",async e=>{
+document.getElementById("admissionForm").addEventListener("submit", async e=>{
 e.preventDefault();
-
-const aad=document.getElementById("aadhar").value;
+try{
+const aad=aadhar.value;
 if(aad && !validateAadhaar(aad)){ alert("Invalid Aadhaar"); return; }
 
-const photo=document.getElementById("photo").files[0];
+const photo=photo.files[0];
 const ref=storage.ref("students/"+Date.now()+"_"+photo.name);
 await ref.put(photo);
 const photoURL=await ref.getDownloadURL();
 
-const data={
-name:name.value,dob:dob.value,gender:gender.value,class:class.value,
-father:father.value,mother:mother.value,mobile:mobile.value,
-whatsapp:whatsapp.value,address:address.value,category:category.value,
-aadhar:aad||"N/A",photoURL,submittedAt:new Date().toLocaleString()
-};
+const data={name:name.value,dob:dob.value,gender:gender.value,class:class.value,
+father:father.value,mother:mother.value,mobile:mobile.value,whatsapp:whatsapp.value,
+address:address.value,category:category.value,aadhar:aad||"N/A",
+photoURL,submittedAt:new Date().toLocaleString(),status:"NEW"};
 
 await db.collection("new_requests").add(data);
 generatePDF(data);
 overlay.style.display="flex";
+
+}catch(err){
+alert("Submission failed: "+err.message);
+console.error(err);
+}
 });
 
 // PDF
